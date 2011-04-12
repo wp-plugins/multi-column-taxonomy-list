@@ -1,0 +1,21 @@
+div.multi-column-taxonomy-list{
+	clear:both;
+}
+.multi-column-taxonomy-list ul{
+	list-style:none;
+	float:left;
+	padding:10px 20px 0 0;
+	margin-left:0;
+	width:31%;
+}
+ul.multi-column-3{
+	padding-right:0;
+}
+.multi-column-taxonomy-list a{
+	border-bottom:1px dotted #53575f;
+	display:block;
+	padding:4px 0 4px 2px;
+}
+.multi-column-taxonomy-list a:hover{
+	background-color:#f0f0f0;
+}
