@@ -19,3 +19,8 @@ ul.multi-column-3{
 .multi-column-taxonomy-list a:hover{
 	background-color:#f0f0f0;
 }
+.multi-column-taxonomy-list span.rss{
+	float:right;
+	margin:2px 2px 0 0;
+	text-decoration:none;
+}

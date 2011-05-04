@@ -3,7 +3,7 @@ Contributors: mmuro
 Tags: categories, category, tags, tag, taxonomy, shortcode 
 Requires at least: 3.0
 Tested up to: 3.1.1
-Stable tag: 1.0
+Stable tag: 1.1
 
 List your categories, tags, or custom taxonomies into multiple, customizable, columns. 
 
@@ -11,7 +11,7 @@ List your categories, tags, or custom taxonomies into multiple, customizable, co
 
 *Multi-Column Taxonomy List* is a plugin that allows you to list your categories, tags, or custom taxonomies into multiple columns.
 
-This plugin is great to use on custom archives index pages to display all categories, tags, and custom taxonomies on a single page.
+This plugin is great to use on custom archives index pages to display all categories, tags, and custom taxonomies on a single page. You can also turn the list into links to the RSS feeds for your taxonomies.
 
 == Installation ==
 
@@ -75,6 +75,16 @@ You can implement a new list by adding the shortcode `[mctl]` to the content of 
 * **exclude**: Exclude one or more terms from the results.
 	- Valid values: unique IDs, separated by commas. (ex: `exclude='12,13,22'`)
 	- Default: no default
+* **parent**: Get direct children of this term
+	- Valid values: any integer
+	- Multiple values not allowed
+	- Default: no default
+* **rss**: Turns the list into links to RSS feed of term. `0` is false/off and `1` is true/on
+	- Valid values: `0`, `1`
+	- Default: `0`
+* **rss_image**: Use a custom image RSS image icon when `rss` is on.
+	- Valid values: full URL to image
+	- Default: `/wp-includes/images/rss.png`
 
 = Template tag =
 Alternatively, you can implement a new list by adding the the template tag `<?php multi_column_tax_list(); ?>` anywhere in the code of your theme. Just like the shortcode, by default it will output the categories into three columns with a heading of Categories.  You can customize the output using a string of parameters in the following format: `<?php multi_column_tax_list( 'taxonomy=post_tag&title=Tags' ); ?>`
@@ -84,9 +94,19 @@ Refer to the above attributes for customizations.
 == Screenshots ==
 
 1. List of categories and tags added to a Page via shortcode
+1. List of category RSS feeds
 
 == Changelog ==
+
+**Version 1.1**
+
+* Add new shortcode attributes: parent, rss, and rss_image
 
 **Version 1.0**
 
 * Plugin launch!
+
+== Upgrade Notice ==
+
+= 1.1 =
+Added ability to show only items from a particular parent. Also, turn the list into links to the RSS feeds.

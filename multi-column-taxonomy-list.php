@@ -3,7 +3,7 @@
 Plugin Name: Multi-Column Taxonomy List
 Description: List your categories, tags, or custom taxonomies into multiple, customizable, columns.
 Author: Matthew Muro
-Version: 1.0
+Version: 1.1
 */
 
 /*
@@ -109,7 +109,10 @@ class MCTL{
 			'orderby' => 'name',
 			'order' => 'ASC',
 			'show_count' => '0',
-			'exclude' => ''
+			'exclude' => '',
+			'parent' => '',
+			'rss' => '0',
+			'rss_image' => ''
 			), $atts ) 
 		);
 		
@@ -118,7 +121,8 @@ class MCTL{
 			'orderby' => $orderby, 
 			'order' => $order,
 			'show_count' => $show_count,
-			'exclude' => $exclude
+			'exclude' => $exclude,
+			'parent' => $parent
 		);
 		
 		/* Get the terms, based on taxonomy name */
@@ -162,11 +166,19 @@ class MCTL{
 				/* Get the term link */
 				$link = get_term_link( $val->slug, $taxonomy );
 				
+				/* If $rss is true, make the link point to the feed and add the RSS image */
+				if ( $rss == 1 ) {
+					$feed = 'feed';
+					
+					$feed_img_src = ( $rss_image ) ? $rss_image : includes_url() . 'images/rss.png';
+					$feed_img = '<span class="rss"><img alt="RSS" src="' . $feed_img_src . '" style="border:0"></span>';
+				}
+				
 				/* If $show_count is true, display the count */
 				$display_count = ( $show_count == 1 ) ? ' <span class="multi-column-count">(' . $val->count . ')</span>' : '';
 				
 				/* The taxonomy output */
-				$output .= '<li><a href="' . $link . '" rel="tag">' . $val->name . $display_count . '</a></li>';
+				$output .= '<li><a href="' . $link . $feed . '" rel="tag">' . $val->name . $display_count . $feed_img . '</a></li>';
 				
 				/* If our counter is at our limit, output the closing </ul> */
 				if ( $i == $per_column) {
