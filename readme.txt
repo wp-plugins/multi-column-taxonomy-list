@@ -2,7 +2,7 @@
 Contributors: mmuro
 Tags: categories, category, tags, tag, taxonomy, shortcode 
 Requires at least: 3.0
-Tested up to: 3.1.1
+Tested up to: 3.1.2
 Stable tag: 1.1
 
 List your categories, tags, or custom taxonomies into multiple, customizable, columns. 
