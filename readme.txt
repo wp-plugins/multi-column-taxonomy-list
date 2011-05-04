@@ -94,7 +94,7 @@ Refer to the above attributes for customizations.
 == Screenshots ==
 
 1. List of categories and tags added to a Page via shortcode
-1. List of category RSS feeds
+2. List of category RSS feeds
 
 == Changelog ==
 
