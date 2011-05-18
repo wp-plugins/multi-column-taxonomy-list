@@ -3,7 +3,7 @@ Contributors: mmuro
 Tags: categories, category, tags, tag, taxonomy, shortcode 
 Requires at least: 3.0
 Tested up to: 3.1.2
-Stable tag: 1.1
+Stable tag: 1.2
 
 List your categories, tags, or custom taxonomies into multiple, customizable, columns. 
 
@@ -85,6 +85,9 @@ You can implement a new list by adding the shortcode `[mctl]` to the content of 
 * **rss_image**: Use a custom image RSS image icon when `rss` is on.
 	- Valid values: full URL to image
 	- Default: `/wp-includes/images/rss.png`
+* **number**: Max number of terms to display
+	- Valid values: any integer
+	- Default: display all terms
 
 = Template tag =
 Alternatively, you can implement a new list by adding the the template tag `<?php multi_column_tax_list(); ?>` anywhere in the code of your theme. Just like the shortcode, by default it will output the categories into three columns with a heading of Categories.  You can customize the output using a string of parameters in the following format: `<?php multi_column_tax_list( 'taxonomy=post_tag&title=Tags' ); ?>`
@@ -98,6 +101,11 @@ Refer to the above attributes for customizations.
 
 == Changelog ==
 
+**Version 1.2**
+
+* Fix bug causing extra closing `ul` to output
+* Add new shortcode attribute: number
+
 **Version 1.1**
 
 * Add new shortcode attributes: parent, rss, and rss_image
@@ -107,6 +115,9 @@ Refer to the above attributes for customizations.
 * Plugin launch!
 
 == Upgrade Notice ==
+
+= 1.2 =
+Fix bug causing extra closing `ul` to be output. Added a new shortcode to limit the number of terms being output.
 
 = 1.1 =
 Added ability to show only items from a particular parent. Also, turn the list into links to the RSS feeds.

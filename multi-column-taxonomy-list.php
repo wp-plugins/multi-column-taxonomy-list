@@ -3,7 +3,7 @@
 Plugin Name: Multi-Column Taxonomy List
 Description: List your categories, tags, or custom taxonomies into multiple, customizable, columns.
 Author: Matthew Muro
-Version: 1.1
+Version: 1.2
 */
 
 /*
@@ -112,7 +112,8 @@ class MCTL{
 			'exclude' => '',
 			'parent' => '',
 			'rss' => '0',
-			'rss_image' => ''
+			'rss_image' => '',
+			'number' => '',
 			), $atts ) 
 		);
 		
@@ -122,7 +123,8 @@ class MCTL{
 			'order' => $order,
 			'show_count' => $show_count,
 			'exclude' => $exclude,
-			'parent' => $parent
+			'parent' => $parent,
+			'number' => $number
 		);
 		
 		/* Get the terms, based on taxonomy name */
@@ -146,6 +148,9 @@ class MCTL{
 			
 			/* Set the column index for the CSS class */
 			$col_index = 1;
+			
+			/* Set the tax index to find the last item */
+			$tax_index = 1;
 			
 			/* Loop through the $tax objects and print out our columns */
 			foreach ( $tax as $val ) {
@@ -180,16 +185,17 @@ class MCTL{
 				/* The taxonomy output */
 				$output .= '<li><a href="' . $link . $feed . '" rel="tag">' . $val->name . $display_count . $feed_img . '</a></li>';
 				
-				/* If our counter is at our limit, output the closing </ul> */
-				if ( $i == $per_column) {
+				/* If our counter is at our limit and not the last item, output the closing </ul> */
+				if ( $i == $per_column && $tax_index !== $count ) {
 					$output .= '</ul>';
 					
 					/* Set this to true so the next opening <ul> can print */
 					$open_ul = true;
 				}
 				
-				/* Increase the counter for each term */
+				/* Increase the counters for each term */
 				$i++;
+				$tax_index++;
 			}
 			
 			$output .= '</ul></div>';
