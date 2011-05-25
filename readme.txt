@@ -15,8 +15,8 @@ This plugin is great to use on custom archives index pages to display all catego
 
 == Installation ==
 
-1. Upload `multi-column-taxonomy-list` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Upload `multi-column-taxonomy-list` to the `/wp-content/plugins/` directory.
+1. Activate the plugin through the 'Plugins' menu in WordPress.
 1. Create a new page and add the shortcode `[mctl]` to the content.
 
 Alternatively, you can add `<?php multi_column_tax_list(); ?>` anywhere in your theme.
