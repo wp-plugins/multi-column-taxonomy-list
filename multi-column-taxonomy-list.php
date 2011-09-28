@@ -3,7 +3,7 @@
 Plugin Name: Multi-Column Taxonomy List
 Description: List your categories, tags, or custom taxonomies into multiple, customizable, columns.
 Author: Matthew Muro
-Version: 1.2
+Version: 1.3
 */
 
 /*
@@ -114,6 +114,7 @@ class MCTL{
 			'rss' => '0',
 			'rss_image' => '',
 			'number' => '',
+			'like' => ''
 			), $atts ) 
 		);
 		
@@ -124,7 +125,8 @@ class MCTL{
 			'show_count' => $show_count,
 			'exclude' => $exclude,
 			'parent' => $parent,
-			'number' => $number
+			'number' => $number,
+			'name__like' => $like
 		);
 		
 		/* Get the terms, based on taxonomy name */
