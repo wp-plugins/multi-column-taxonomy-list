@@ -1,11 +1,13 @@
 === Multi-Column Taxonomy List ===
 Contributors: mmuro
-Tags: categories, category, tags, tag, taxonomy, shortcode 
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=G87A9UN9CLPH4&lc=US&item_name=MCTL%20&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
+Tags: categories, category, tags, tag, taxonomy, shortcode
 Requires at least: 3.0
-Tested up to: 3.2.1
-Stable tag: 1.3
+Tested up to: 3.6
+Stable tag: 1.4
+License: GPLv2 or later
 
-List your categories, tags, or custom taxonomies into multiple, customizable, columns. 
+List your categories, tags, or custom taxonomies into multiple, customizable, columns.
 
 == Description ==
 
@@ -44,6 +46,10 @@ If you want to customize the appearance of the lists using your own CSS, here's 
 1. Copy everything from `css/multi-column-taxonomy-list.css` into your theme's `style.css`
 1. Change the CSS properties in your theme's `style.css` as needed
 
+= How do I display my terms with an alphabetical grouping? =
+
+All you need to do is add the following property to the shortcode: `alpha_grouping=1`
+
 == Usage ==
 
 = Shortcode attributes =
@@ -69,6 +75,9 @@ You can implement a new list by adding the shortcode `[mctl]` to the content of 
 * **order**: Sort order for the terms (either ascending or descending)
 	- Valid values: `ASC`, `DESC`
 	- Default: `ASC`
+* **alpha_grouping**: Output the first letter of each alphabetical grouping
+	- Valid values: `0`, `1`
+	- Default: `0`
 * **show_count**: Toggles the display of the current count of posts in each term. `0` is false/off and `1` is true/on
 	- Valid values: `0`, `1`
 	- Default: `0`
@@ -79,6 +88,10 @@ You can implement a new list by adding the shortcode `[mctl]` to the content of 
 	- Valid values: any integer
 	- Multiple values not allowed
 	- Default: no default
+* **child_of**: Get all descendents of this term
+	- Valid values: any integer
+	- Multiple values not allowed
+	- Default: `0`
 * **rss**: Turns the list into links to RSS feed of term. `0` is false/off and `1` is true/on
 	- Valid values: `0`, `1`
 	- Default: `0`
@@ -89,6 +102,9 @@ You can implement a new list by adding the shortcode `[mctl]` to the content of 
 	- Valid values: any integer
 	- Default: display all terms
 * **like**: Return terms that begin with this value
+	- Valid values: any string
+	- Default: no default
+* **search**: Return terms that contain the 'search' string
 	- Valid values: any string
 	- Default: no default
 
@@ -104,24 +120,33 @@ Refer to the above attributes for customizations.
 
 == Changelog ==
 
-**Version 1.3**
+**Version 1.4 - May 28, 2013**
+
+* Add alphabetical grouping option
+* Add 'child_of' and 'search' parameters
+* Fix bug where variables were not initially set
+
+**Version 1.3 - Sep 28, 2011**
 
 * Add new shortcode attribute: like. Display items that begin with a certain value.
 
-**Version 1.2**
+**Version 1.2 - Jul 13, 2011**
 
 * Fix bug causing extra closing `ul` to output
 * Add new shortcode attribute: number
 
-**Version 1.1**
+**Version 1.1 - May 4, 2011**
 
 * Add new shortcode attributes: parent, rss, and rss_image
 
-**Version 1.0**
+**Version 1.0 - Apr 12, 2011**
 
 * Plugin launch!
 
 == Upgrade Notice ==
+
+= 1.4 =
+Add alphabetical grouping option. Add 'child_of' and 'search' parameters. See Usage Notes
 
 = 1.3 =
 Added a new shortcode to create lists that only begin with a certain value.
