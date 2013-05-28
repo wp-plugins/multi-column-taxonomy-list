@@ -30,27 +30,27 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  * @echo class function Unordered lists to taxonomies
  */
 function multi_column_tax_list( $args = '' ){
-	/* Create new class instance */
+	// Create new class instance
 	$template_tag = new MCTL();
 
-	/* Parse the arguments into an array */
+	// Parse the arguments into an array
 	$args = wp_parse_args( $args );
 
-	/* Print the output */
+	// Print the output
 	echo $template_tag->shortcode( $args );
 }
 
-/* Instantiate new class */
+// Instantiate new class
 $mctl = new MCTL();
 
-/* Multi-Column Taxonomy List class */
+// Multi-Column Taxonomy List class
 class MCTL{
 
 	public function __construct(){
-		/* Create the shortcode */
+		// Create the shortcode
 		add_shortcode( 'mctl', array( &$this, 'shortcode' ) );
 
-		/* Make sure our CSS gets added via wp_head */
+		// Make sure our CSS gets added via wp_head
 		add_action( 'wp_head', array( &$this, 'css' ) );
 	}
 
@@ -71,24 +71,24 @@ class MCTL{
 	 * @return $tax_terms array All taxonomies and associated metadata.
 	 */
 	public function get_tax( $tax_name = 'category', $terms_args = array() ){
-		/* Only use public taxonomies, the default being 'category' */
+		// Only use public taxonomies, the default being 'category'
 		$tax_args = array(
 			'public' => true,
-			'name' => $tax_name
+			'name'   => $tax_name
 		);
 
-		/* Get the taxonomy data as objects */
+		// Get the taxonomy data as objects
 		$taxonomies = get_taxonomies( $tax_args, 'objects' );
 
-		/* Setup our $tax_terms array */
+		// Setup our $tax_terms array
 		$tax_terms = array();
 
-		/* If any result for the taxonomy, loop through and load our $tax_terms array with the terms */
-		if ( $taxonomies ) {
+		// If any result for the taxonomy, loop through and load our $tax_terms array with the terms
+		if ( $taxonomies ) :
 			foreach ( $taxonomies as $taxonomy ) {
 				$tax_terms[] = get_terms ( $taxonomy->name, $terms_args );
 			}
-		}
+		endif;
 
 		return $tax_terms;
 	}
@@ -104,108 +104,108 @@ class MCTL{
 
 		$output = $feed = $feed_img = '';
 
-		/* Extract shortcode attributes, set defaults */
+		// Extract shortcode attributes, set defaults
 		extract( shortcode_atts( array(
-			'taxonomy' => 'category',
-			'title' => 'Categories',
-			'title_container' => 'h3',
-			'columns' => '3',
-			'orderby' => 'name',
-			'order' => 'ASC',
-			'show_count' => '0',
-			'exclude' => '',
-			'parent' => '',
-			'rss' => '0',
-			'rss_image' => '',
-			'number' => '',
-			'like' => ''
+			'taxonomy'           => 'category',
+			'title'              => 'Categories',
+			'title_container'    => 'h3',
+			'columns'            => '3',
+			'orderby'            => 'name',
+			'order'              => 'ASC',
+			'show_count'         => '0',
+			'exclude'            => '',
+			'parent'             => '',
+			'rss'                => '0',
+			'rss_image'          => '',
+			'number'             => '',
+			'like'               => ''
 			), $atts )
 		);
 
-		/* Build an array of arguments for the get_terms parameters */
+		// Build an array of arguments for the get_terms parameters
 		$args = array(
-			'orderby' => $orderby,
-			'order' => $order,
+			'orderby'    => $orderby,
+			'order'      => $order,
 			'show_count' => $show_count,
-			'exclude' => $exclude,
-			'parent' => $parent,
-			'number' => $number,
+			'exclude'    => $exclude,
+			'parent'     => $parent,
+			'number'     => $number,
 			'name__like' => $like
 		);
 
-		/* Get the terms, based on taxonomy name */
+		// Get the terms, based on taxonomy name
 		$taxonomies = $this->get_tax( $taxonomy, $args );
 
 		$output .= '<div class="multi-column-taxonomy-list">';
 
-		foreach ( $taxonomies as $tax ) {
-			/* If the user has set a title, add it to the output */
+		foreach ( $taxonomies as $tax ) :
+			// If the user has set a title, add it to the output
 			if ( $title )
 				$output .= "<$title_container>$title</$title_container>";
 
-			/* Count the terms */
+			// Count the terms
 			$count = count( $tax );
 
-			/* Round up to determine how many terms per column */
+			// Round up to determine how many terms per column
 			$per_column = ceil( $count / $columns );
 
-			/* Will print out our first <ul> */
+			// Will print out our first <ul>
 			$open_ul = true;
 
-			/* Set the column index for the CSS class */
+			// Set the column index for the CSS class
 			$col_index = 1;
 
-			/* Set the tax index to find the last item */
+			// Set the tax index to find the last item
 			$tax_index = 1;
 
-			/* Loop through the $tax objects and print out our columns */
-			foreach ( $tax as $val ) {
-				/* If true, print out the opening <ul> tag and reset our counter */
-				if ( $open_ul == true ) {
+			// Loop through the $tax objects and print out our columns
+			foreach ( $tax as $val ) :
+				// If true, print out the opening <ul> tag and reset our counter
+				if ( $open_ul == true ) :
 					$output .= '<ul class="multi-column-' . $col_index . '">';
 
-					/* Set this to prevent the open <ul> from printing until ready for it */
+					// Set this to prevent the open <ul> from printing until ready for it
 					$open_ul = false;
 
-					/* Resets our counter */
+					// Resets our counter
 					$i = 1;
 
-					/* Increase the column index for the CSS class */
+					// Increase the column index for the CSS class
 					$col_index++;
-				}
+				endif;
 
-				/* Get the term link */
+				// Get the term link
 				$link = get_term_link( $val->slug, $taxonomy );
 
-				/* If $rss is true, make the link point to the feed and add the RSS image */
-				if ( $rss == 1 ) {
+				// If $rss is true, make the link point to the feed and add the RSS image
+				if ( $rss == 1 ) :
 					$feed = 'feed';
 
 					$feed_img_src = ( $rss_image ) ? $rss_image : includes_url() . 'images/rss.png';
 					$feed_img = '<span class="rss"><img alt="RSS" src="' . $feed_img_src . '" style="border:0"></span>';
-				}
+				endif;
 
-				/* If $show_count is true, display the count */
+				// If $show_count is true, display the count
 				$display_count = ( $show_count == 1 ) ? ' <span class="multi-column-count">(' . $val->count . ')</span>' : '';
 
-				/* The taxonomy output */
+				// The taxonomy output
 				$output .= '<li><a href="' . $link . $feed . '" rel="tag">' . $val->name . $display_count . $feed_img . '</a></li>';
 
-				/* If our counter is at our limit and not the last item, output the closing </ul> */
-				if ( $i == $per_column && $tax_index !== $count ) {
+				// If our counter is at our limit and not the last item, output the closing </ul>
+				if ( $i == $per_column && $tax_index !== $count ) :
 					$output .= '</ul>';
 
 					/* Set this to true so the next opening <ul> can print */
 					$open_ul = true;
-				}
+				endif;
 
-				/* Increase the counters for each term */
+				// Increase the counters for each term
 				$i++;
 				$tax_index++;
-			}
+			endforeach;
 
 			$output .= '</ul></div>';
-		}
+		endforeach;
 
 		return $output;
 	}
