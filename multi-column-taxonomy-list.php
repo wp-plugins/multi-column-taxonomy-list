@@ -102,7 +102,7 @@ class MCTL{
 	 */
 	public function shortcode( $atts ){
 
-		$output = $feed = $feed_img = '';
+		$output = $feed = $feed_img = $first_letter = $last_letter = '';
 
 		// Extract shortcode attributes, set defaults
 		extract( shortcode_atts( array(
@@ -112,6 +112,7 @@ class MCTL{
 			'columns'            => '3',
 			'orderby'            => 'name',
 			'order'              => 'ASC',
+			'alpha_grouping'     => '0',
 			'show_count'         => '0',
 			'exclude'            => '',
 			'parent'             => '',
@@ -140,8 +141,7 @@ class MCTL{
 
 		foreach ( $taxonomies as $tax ) :
 			// If the user has set a title, add it to the output
-			if ( $title )
-				$output .= "<$title_container>$title</$title_container>";
+			$output .= ( $title ) ? "<$title_container>$title</$title_container>" : '';
 
 			// Count the terms
 			$count = count( $tax );
@@ -160,9 +160,10 @@ class MCTL{
 
 			// Loop through the $tax objects and print out our columns
 			foreach ( $tax as $val ) :
+
 				// If true, print out the opening <ul> tag and reset our counter
 				if ( $open_ul == true ) :
-					$output .= '<ul class="multi-column-' . $col_index . '">';
+					$output .= sprintf( '<ul class="multi-column-%d">', $col_index );
 
 					// Set this to prevent the open <ul> from printing until ready for it
 					$open_ul = false;
@@ -174,6 +175,21 @@ class MCTL{
 					$col_index++;
 				endif;
 
+				// Add alphabetical grouping
+				if ( $alpha_grouping ) :
+					// Get first letter
+					$first_letter = substr( $val->name, 0, 1 );
+
+					// If current letter does not match last one, it's new
+					if ( $first_letter !== $last_letter ) :
+
+						$output .= sprintf( '<li class="multi-column-alpha-group">%s</li>', $first_letter );
+
+						// Save current letter for next comparison
+						$last_letter = $first_letter;
+					endif;
+				endif;
+
 				// Get the term link
 				$link = get_term_link( $val->slug, $taxonomy );
 
@@ -182,20 +198,20 @@ class MCTL{
 					$feed = 'feed';
 
 					$feed_img_src = ( $rss_image ) ? $rss_image : includes_url() . 'images/rss.png';
-					$feed_img = '<span class="rss"><img alt="RSS" src="' . $feed_img_src . '" style="border:0"></span>';
+					$feed_img = sprintf( '<span class="rss"><img alt="RSS" src="%s" style="border:0"></span>', $feed_img_src );
 				endif;
 
 				// If $show_count is true, display the count
-				$display_count = ( $show_count == 1 ) ? ' <span class="multi-column-count">(' . $val->count . ')</span>' : '';
+				$display_count = ( $show_count == 1 ) ? sprintf( ' <span class="multi-column-count">(%d)</span>', $val->count ) : '';
 
 				// The taxonomy output
-				$output .= '<li><a href="' . $link . $feed . '" rel="tag">' . $val->name . $display_count . $feed_img . '</a></li>';
+				$output .= sprintf( '<li><a href="%1$s%2$s" rel="tag">%3$s%4$s%5$s</a></li>', $link, $feed, $val->name, $display_count, $feed_img );
 
 				// If our counter is at our limit and not the last item, output the closing </ul>
 				if ( $i == $per_column && $tax_index !== $count ) :
 					$output .= '</ul>';
 
-					/* Set this to true so the next opening <ul> can print */
+					// Set this to true so the next opening <ul> can print
 					$open_ul = true;
 				endif;
 
