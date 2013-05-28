@@ -116,10 +116,12 @@ class MCTL{
 			'show_count'         => '0',
 			'exclude'            => '',
 			'parent'             => '',
+			'child_of'			 => '0',
 			'rss'                => '0',
 			'rss_image'          => '',
 			'number'             => '',
-			'like'               => ''
+			'like'               => '',
+			'search'			 => '',
 			), $atts )
 		);
 
@@ -130,8 +132,10 @@ class MCTL{
 			'show_count' => $show_count,
 			'exclude'    => $exclude,
 			'parent'     => $parent,
+			'child_of'	 => $child_of,
 			'number'     => $number,
-			'name__like' => $like
+			'name__like' => $like,
+			'search'	 => $search,
 		);
 
 		// Get the terms, based on taxonomy name
