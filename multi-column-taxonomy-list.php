@@ -197,6 +197,10 @@ class MCTL{
 				// Get the term link
 				$link = get_term_link( $val->slug, $taxonomy );
 
+				// Always check if it's an error before continuing. get_term_link() can be finicky sometimes
+				if( is_wp_error( $link ) )
+					continue;
+
 				// If $rss is true, make the link point to the feed and add the RSS image
 				if ( $rss == 1 ) :
 					$feed = 'feed';
