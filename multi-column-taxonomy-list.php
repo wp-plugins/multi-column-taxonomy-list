@@ -4,7 +4,7 @@ Plugin Name: Multi-Column Taxonomy List
 Description: List your categories, tags, or custom taxonomies into multiple, customizable, columns.
 Author: Matthew Muro
 Author URI: http://matthewmuro.com
-Version: 1.4
+Version: 1.5
 */
 
 /*

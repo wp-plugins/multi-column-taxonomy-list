@@ -3,8 +3,8 @@ Contributors: mmuro
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=G87A9UN9CLPH4&lc=US&item_name=MCTL%20&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_SM%2egif%3aNonHosted
 Tags: categories, category, tags, tag, taxonomy, shortcode
 Requires at least: 3.0
-Tested up to: 3.6
-Stable tag: 1.4
+Tested up to: 3.8.1
+Stable tag: 1.5
 License: GPLv2 or later
 
 List your categories, tags, or custom taxonomies into multiple, customizable, columns.
@@ -120,6 +120,10 @@ Refer to the above attributes for customizations.
 
 == Changelog ==
 
+**Version 1.5 - Jan 28, 2014**
+
+* Fix bug where get_term_link may return an error
+
 **Version 1.4 - May 28, 2013**
 
 * Add alphabetical grouping option
@@ -144,6 +148,9 @@ Refer to the above attributes for customizations.
 * Plugin launch!
 
 == Upgrade Notice ==
+
+= 1.5 =
+Fix bug where get_term_link may return an error
 
 = 1.4 =
 Add alphabetical grouping option. Add 'child_of' and 'search' parameters. See Usage Notes
